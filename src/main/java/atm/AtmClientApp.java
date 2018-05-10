@@ -1,5 +1,6 @@
 package atm;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class AtmClientApp {
@@ -8,7 +9,7 @@ public class AtmClientApp {
 
 		Scanner input = new Scanner(System.in);
 
-		Atm myAccount = new Atm(100.00);
+		Atm myAccount = new Atm(new BigDecimal("100.00"));
 
 		System.out.println("Enter your pin.");
 		String enteredPin = input.nextLine();
@@ -30,14 +31,14 @@ public class AtmClientApp {
 
 			if (optionEntered.equals("1")) {
 				System.out.println("Enter deposit amount:");
-				int depositAmount = input.nextInt();
+				BigDecimal depositAmount = input.nextBigDecimal();
 				myAccount.deposit(depositAmount);
 				System.out.println(
 						"You have selected to deposit " + " and your balance is now " + myAccount.getBalance());
 				input.nextLine();
 			} else if (optionEntered.equals("2")) {
 				System.out.println("Entered a withdraw amount:");
-				int withdrawAmount = input.nextInt();
+				BigDecimal withdrawAmount = input.nextBigDecimal();
 				myAccount.withdraw(withdrawAmount);
 				System.out.println(
 						"You have selected to withdraw " + " and your balance is now " + myAccount.getBalance());
