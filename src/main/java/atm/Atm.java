@@ -1,44 +1,38 @@
 package atm;
 
+import java.math.BigDecimal;
+
 public class Atm {
 
-	private double balance;
+	private BigDecimal balance;
 	private String requiredPin = "1234";
 
-	public double getBalance() {
+	public BigDecimal getBalance() {
 		return balance;
 	}
 
 	public Atm() {
-		// could have done:
-		// balance = 500.00;
-		// calling the other constructor:
-		this(500.00);
+		this(new BigDecimal("500.00"));
 	}
 
-	public Atm(double amount) {
-		balance = amount;
+	public Atm(BigDecimal balance) {
+		this.balance = balance;
 	}
 
 	public boolean allowAccess(String enteredPin) {
 		return requiredPin.equals(enteredPin);
 	}
 
-	public void withdraw(int amountToWithdraw) {
-		if (balance >= amountToWithdraw) {
-			balance -= amountToWithdraw;
+	public void withdraw(BigDecimal amountToWithdraw) {
+		if (balance.compareTo(amountToWithdraw) < 0) {
+			balance = new BigDecimal("0.00");
 		} else {
-			balance -= balance;
+			balance = balance.subtract(amountToWithdraw);
 		}
 	}
 
-	public void deposit(int amountToDeposit) {
-		if (amountToDeposit > 0) {
-			balance += amountToDeposit;
-		} else {
-			balance += 0;
-		}
-
+	public void deposit(BigDecimal amountToDeposit) {
+		balance = balance.add(amountToDeposit);
 	}
 
 }
